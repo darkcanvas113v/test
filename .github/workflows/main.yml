@@ -9,6 +9,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      name: Get pull request labels
-      run: |
-        echo "${{ github.event.pull_request.labels.*.name }}"
+      - name: Get pull request labels
+        run: |
+          echo "${{ github.event.pull_request.labels.*.name }}"
