@@ -1,0 +1,14 @@
+on:
+  pull_request:
+    branches: [ "test" ]
+    types: [opened, reopened]
+
+jobs:
+  testing:
+    name: Run test
+    runs-on: ubuntu-latest
+
+    steps:
+      name: Get pull request labels
+      run: |
+        echo "${{ github.event.pull_request.labels.*.name }}"
