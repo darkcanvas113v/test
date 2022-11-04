@@ -49,3 +49,4 @@ jobs:
         uses: rickstaa/action-create-tag@v1
         with:
           tag: ${{ steps.newversion.outputs.new_version }}
+          force_push_tag: true
