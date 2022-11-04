@@ -11,4 +11,4 @@ jobs:
     steps:
       - name: Get pull request labels
         run: |
-          echo ${ids// / }
+          echo ${${{ github.event.pull_request.labels.*.name }}// / }
