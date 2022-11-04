@@ -9,6 +9,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get pull request labels
+      - name: Get PR labels
+        id: pr-labels
+        uses: joerick/pr-labels-action@v1.0.6
         run: |
-          echo "${${{ github.event.pull_request.labels.*.name }}[*]}"
+          echo "$GITHUB_PR_LABEL_RELEASE_PATCH"
+          echo "$GITHUB_PR_LABEL_RELEASE_MINOR"
+          echo "$GITHUB_PR_LABEL_RELEASE_MAJOR"
