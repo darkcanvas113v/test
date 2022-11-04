@@ -11,5 +11,4 @@ jobs:
     steps:
       - name: Get pull request labels
         run: |
-          labels=${{ github.event.pull_request.labels.*.name }}
-          for ((i=0; i<${labels[@]}; i++)); do echo "${labels[$i]}"; done
+          echo ${ids// / }
