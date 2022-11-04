@@ -22,7 +22,8 @@ jobs:
         id: pr-labels
         uses: joerick/pr-labels-action@v1.0.6
 
-      - name: Print release labels
+      - name: Calculate new version
+        id: newversion
         run: |
           previous_tag=${{ steps.previoustag.outputs.tag }}
           formatted_version=${previous_tag:1}
@@ -33,14 +34,18 @@ jobs:
           patch_part=${version_parts[2]}
           
           if [ -n "${GITHUB_PR_LABEL_RELEASE_MAJOR}" ]; then
-            echo "Major update"
             major_part=$((major_part+1))
           elif [ -n "$GITHUB_PR_LABEL_RELEASE_MINOR" ]; then
-            echo "Minor update"
-            minor_part=v$((minor_part+1))
+            minor_part=$((minor_part+1))
           else
-            echo "Patch update"
-            patch_part=v$((patch_part+1))
+            patch_part=$((patch_part+1))
+          fi
           
           new_version="v${major_part}.${minor_part}.${patch_part}"
           echo "New version: ${new_version}"
+          echo ::set-output name=new_version::new_version
+
+      - name: Set tag
+        uses: rickstaa/action-create-tag@v1
+        with:
+          tag: ${{ steps.newversion.outputs.new_version }}
