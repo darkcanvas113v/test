@@ -24,7 +24,7 @@ jobs:
 
       - name: Print release labels
         run: |
-          version=${{ steps.previoustag.outputs.tag }}
+          version=${{ steps.previoustag.outputs.tag }}:1
           
           version_parts=(${version//./ })
           
