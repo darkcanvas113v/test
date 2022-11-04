@@ -10,10 +10,10 @@ jobs:
 
     steps:
       - name: Get previous tag
-        id: previous tag
+        id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
         with:
-          fallback: 0.0.0
+          fallback: v0.0.0
 
       - name: Get PR labels
         id: pr-labels
@@ -21,12 +21,25 @@ jobs:
 
       - name: Print release labels
         run: |
+          version=${{ steps.previoustag.output.tag }}:1
+          version_parts=(${version//./ })
+          
+          major_part=${version_parts[0]}
+          minor_part=${version_parts[1]}
+          patch_part=${version_parts[2]}
+          
           if [ -n "${GITHUB_PR_LABEL_RELEASE_MAJOR}" ]; then
             echo "Major update"
+            major_part=$((major_part+1))
           elif [ -n "$GITHUB_PR_LABEL_RELEASE_MINOR" ]; then
             echo "Minor update"
+            minor_part=v$((minor_part+1))
           else
             echo "Patch update"
+            patch_part=v$((patch_part+1))
+          
+          new_version="v${major_part}.${minor_part}.${patch_part}"
+          echo "New version: ${new_version}"
 
 defaults:
   run:
