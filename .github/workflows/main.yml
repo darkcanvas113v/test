@@ -12,4 +12,5 @@ jobs:
       - name: Get pull request labels
         run: |
           array=(a b c d)
+          echo array
           echo "${array[*]}"
