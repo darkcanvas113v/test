@@ -9,12 +9,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Get previous tag
+        id: previous tag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+        with:
+          fallback: 0.0.0
+
       - name: Get PR labels
         id: pr-labels
         uses: joerick/pr-labels-action@v1.0.6
 
       - name: Print release labels
         run: |
-          echo "$GITHUB_PR_LABEL_RELEASE_PATCH"
-          echo "$GITHUB_PR_LABEL_RELEASE_MINOR"
-          echo "$GITHUB_PR_LABEL_RELEASE_MAJOR"
+          if [ -n "${GITHUB_PR_LABEL_RELEASE_MAJOR}" ]; then
+            echo "Major update"
+          elif [ -n "$GITHUB_PR_LABEL_RELEASE_MINOR" ]; then
+            echo "Minor update"
+          else
+            echo "Patch update"
+
+defaults:
+  run:
+    shell: bash
+    working-directory: scripts
