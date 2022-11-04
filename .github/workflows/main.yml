@@ -43,8 +43,3 @@ jobs:
           
           new_version="v${major_part}.${minor_part}.${patch_part}"
           echo "New version: ${new_version}"
-
-defaults:
-  run:
-    shell: bash
-    working-directory: scripts
