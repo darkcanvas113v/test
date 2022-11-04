@@ -43,7 +43,7 @@ jobs:
           
           new_version="v${major_part}.${minor_part}.${patch_part}"
           echo "New version: ${new_version}"
-          echo ::set-output name=new_version::new_version
+          echo ::set-output name=new_version::$new_version
 
       - name: Set tag
         uses: rickstaa/action-create-tag@v1
