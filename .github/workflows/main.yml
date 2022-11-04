@@ -12,6 +12,8 @@ jobs:
       - name: Get PR labels
         id: pr-labels
         uses: joerick/pr-labels-action@v1.0.6
+
+      - name: Print release labels
         run: |
           echo "$GITHUB_PR_LABEL_RELEASE_PATCH"
           echo "$GITHUB_PR_LABEL_RELEASE_MINOR"
